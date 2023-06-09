@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: permify-statefulset
+spec:
+  serviceName: "permify"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: permify
+  template:
+    metadata:
+      labels:
+        app: permify
+    spec:
+      containers:
+        - image: muratmirgun/permify-local:56
+          name: permify
+          args:
+            - "serve"
+            - "--database-engine=postgres"
+            - "--database-uri=postgres://postgres:123QWEqwe!@database.c9xesyycl9xt.eu-central-1.rds.amazonaws.com:5432/permify?sslmode=disable"
+            - "--database-max-open-connections=20"
+            - "--distributed-enabled=true"
+            - "--distributed-nodes=permify-statefulset-0.permify.default.svc.cluster.local:7946"
+          ports:
+          - containerPort: 3476
+            name: permify-port
+          - containerPort: 7946
+            name: permify-dist
