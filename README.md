@@ -25,7 +25,7 @@ At Permify, we have a variety of ways to help deploy code as flexibly as possibl
 * Helm
 
 #### Examples:
-* [Statefulset with Permify Hashring Feature](https://github.com/Permify/deployment-patterns/tree/main/distributed-statefull-set)
+* [Statefulset with Permify Hashring Feature](https://github.com/Permify/deployment-patterns/tree/main/distributed-stateful-set)
 
 
 
