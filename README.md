@@ -17,10 +17,8 @@ At Permify, we have a variety of ways to help deploy code as flexibly as possibl
 
 
 ## Kubernetes Environment:
-
-
-
 > In the kubernetes section, there are examples of deployment in a distrubuted deployment for production purposes, for example the statefulset example. Or there are small examples of how to mount the 'config.yaml' file inside when you need to use it. Otherwise, if you have used 'ko' or 'unikernel' in image creation processes, there are examples of how to run unikernel on kubernetes with virlet.
+
 ### Prerequisites
 * Kubernetes Cluster
 * Kubectl
