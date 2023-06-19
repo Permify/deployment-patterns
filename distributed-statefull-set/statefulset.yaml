@@ -19,10 +19,17 @@ spec:
           args:
             - "serve"
             - "--database-engine=postgres"
-            - "--database-uri=postgres://postgres:123QWEqwe!@database.c9xesyycl9xt.eu-central-1.rds.amazonaws.com:5432/permify?sslmode=disable"
+            - "--database-uri=<database-dsn>"
             - "--database-max-open-connections=20"
             - "--distributed-enabled=true"
             - "--distributed-nodes=permify-statefulset-0.permify.default.svc.cluster.local:7946"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
           ports:
           - containerPort: 3476
             name: permify-port

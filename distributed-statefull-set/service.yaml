@@ -4,6 +4,9 @@ metadata:
   name: permify
 spec:
   ports:
+      - name: permify-dist
+        port: 7946
+        targetPort: 7946
       - name: permify-port
         port: 3476
         targetPort: 3476
