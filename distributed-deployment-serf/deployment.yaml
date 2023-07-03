@@ -1,10 +1,9 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: permify-statefulset
+  name: permify-deployment
 spec:
-  serviceName: "permify"
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       app: permify
@@ -14,7 +13,7 @@ spec:
         app: permify
     spec:
       containers:
-        - image: muratmirgun/permify-local:56
+        - image: permify/permify:tagname
           name: permify
           args:
             - "serve"
@@ -22,16 +21,22 @@ spec:
             - "--database-uri=<database-dsn>"
             - "--database-max-open-connections=20"
             - "--distributed-enabled=true"
-            - "--distributed-nodes=permify-statefulset-0.permify.default.svc.cluster.local:7946"
+            - "--distributed-node=serf:7946"
+            - "--distributed-node-name=main-serf"
+            - "--distributed-protocol=serf"
           resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: 200m
-              memory: 256Mi
+             requests:
+               memory: "128Mi"
+               cpu: "200m"
+             limits:
+              memory: "128Mi"
+              cpu: "400m"
           ports:
           - containerPort: 3476
             name: permify-port
           - containerPort: 7946
             name: permify-dist
+          - containerPort: 3478
+            name: permify-rpc
+          - containerPort: 6060
+            name: permify-pprof

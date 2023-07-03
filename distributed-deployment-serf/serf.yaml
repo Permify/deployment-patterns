@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serf-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serf
+  template:
+    metadata:
+      labels:
+        app: serf
+    spec:
+      containers:
+      - name: serf
+        image: permify/serf:0.3
+        ports:
+        - containerPort: 7946
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: serf
+spec:
+  selector:
+    app: serf
+  ports:
+  - protocol: TCP
+    port: 7946
+    targetPort: 7946
+    name: serf
+  type: ClusterIP
